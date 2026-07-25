@@ -1,162 +1,182 @@
-# Improve Page Transition Architecture
+# Fix Missing Exit Transition Animation
 
-The current implementation is significantly better than the previous version because it removes the artificial `setTimeout()` and uses `usePathname()` to trigger the enter animation.
+After the architectural refactor, the overlay lifecycle is working correctly.
 
-However, there are still several architectural and reliability issues that must be fixed before considering this production-ready.
+However, a new regression has appeared.
 
-Do **not** rewrite the entire system. Preserve the current structure and behavior while addressing the following issues.
+The exit animation no longer plays when navigating between pages.
 
----
+Instead, the application immediately changes route and only the enter animation is visible.
 
-# 1. Restore proper error handling
+This is **not** a visual issue.
 
-The previous implementation used:
-
-```ts
-try {
-   ...
-} finally {
-   navigatingRef.current = false;
-}
-```
-
-The current version removed this.
-
-This is unsafe.
-
-If:
-
-* GSAP throws
-* router.push() throws
-* enter animation throws
-
-the navigation lock may never be released.
-
-Every transition lifecycle must guarantee cleanup using `try/finally`.
+It is a transition lifecycle issue.
 
 ---
 
-# 2. Use an explicit transition state
+# Goal
 
-The current implementation relies on two booleans:
+Restore the original navigation flow.
 
-* navigatingRef
-* needsEnterRef
+The lifecycle must always be:
 
-Replace this with an explicit state machine.
-
-Example:
-
-```ts
-type TransitionState =
-  | "idle"
-  | "exiting"
-  | "navigating"
-  | "entering";
+```text
+User clicks link
+        │
+        ▼
+Lock transition
+        │
+        ▼
+Play EXIT animation
+        │
+        ▼
+Wait until EXIT animation is COMPLETELY finished
+        │
+        ▼
+router.push()
+        │
+        ▼
+Wait until destination page mounts
+        │
+        ▼
+Play ENTER animation
+        │
+        ▼
+Reset overlay
+        │
+        ▼
+Unlock transition
 ```
 
-The lifecycle should become:
+The route must never change before the exit animation finishes.
+
+---
+
+# Investigate the Transition Manager
+
+Review the navigation lifecycle inside the transition manager.
+
+Verify:
+
+* Is `playExit()` actually executed?
+* Is it awaited correctly?
+* Does `router.push()` execute only after `playExit()` resolves?
+* Does any state transition bypass the exit animation?
+
+There should never be a code path like:
+
+```ts
+router.push(...)
+playExit(...)
+```
+
+or
+
+```ts
+playExit()
+router.push()
+```
+
+without awaiting completion.
+
+The correct sequence is:
+
+```ts
+await playExit(...)
+
+router.push(...)
+```
+
+---
+
+# Verify GSAP Timeline Completion
+
+Inspect `playExit()`.
+
+Ensure the returned Promise resolves only after the GSAP timeline has completely finished.
+
+Do not resolve early.
+
+Verify that:
+
+* timeline onComplete fires correctly
+* Promise resolves exactly once
+* no race condition exists
+
+---
+
+# Verify Overlay Visibility
+
+Ensure the exit animation starts from a visible overlay.
+
+Before playing exit:
+
+* overlay must be visible
+* correct initial transform must be applied
+* autoAlpha / visibility must allow rendering
+
+The animation should not start from a hidden overlay.
+
+---
+
+# Verify State Machine
+
+Confirm the transition state sequence:
 
 ```text
 idle
- ↓
+    ↓
 exiting
- ↓
+    ↓
 navigating
- ↓
+    ↓
 entering
- ↓
+    ↓
 idle
 ```
 
-This improves readability, debugging, and prevents invalid states.
+No transition should skip the `exiting` state.
 
 ---
 
-# 3. Keep the navigation lock completely synchronized
+# Verify React Lifecycle
 
-The navigation lock should only be released after:
+Ensure that no React effect immediately resets or hides the overlay while the exit animation is still running.
 
-* exit animation finished
-* navigation completed
-* enter animation finished
+Check for:
 
-Never release it earlier.
+* resetOverlay()
+* initOverlay()
+* playEnter()
 
-Also guarantee that any failure still returns the system back to:
+Make sure none of them interrupt the exit animation.
+
+---
+
+# Verify Route Change Timing
+
+The destination page should not render until the exit animation completes.
+
+If necessary, move `router.push()` later in the lifecycle.
+
+The router should wait for the animation, not the opposite.
+
+---
+
+# Debug the Actual Execution Order
+
+Temporarily add logs to verify the exact order:
 
 ```text
-idle
-```
-
----
-
-# 4. Convert animation helpers into stable callbacks
-
-Currently:
-
-* playExitAnimation()
-* playEnterAnimation()
-
-are recreated every render.
-
-Wrap them with `useCallback()` so they have stable references.
-
----
-
-# 5. Improve route change handling
-
-The current implementation compares:
-
-```ts
-pathname !== prevPathnameRef.current
-```
-
-This is mostly redundant because the effect already depends on `pathname`.
-
-Simplify the logic.
-
-Only check whether an enter animation is pending.
-
-Avoid unnecessary refs unless they solve a real problem.
-
----
-
-# 6. Preserve original GSAP motion
-
-Do not modify the visual animation.
-
-Keep exactly:
-
-* durations
-* easing
-* diagonal movement
-* overlay sizes
-* overlay colors
-
-If the easing was changed from:
-
-```ts
-power4.in
-power4.out
-```
-
-restore the original easing.
-
-The refactor is architectural, not visual.
-
----
-
-# 7. Improve separation of responsibilities
-
-The provider should clearly separate:
-
-```text
-navigate()
+Click
 
 ↓
 
-playExitAnimation()
+playExit() started
+
+↓
+
+playExit() completed
 
 ↓
 
@@ -164,118 +184,42 @@ router.push()
 
 ↓
 
-handleRouteMounted()
+pathname changed
 
 ↓
 
-playEnterAnimation()
+playEnter() started
+
+↓
+
+playEnter() completed
+
+↓
+
+resetOverlay()
+
+↓
+
+idle
 ```
 
-Avoid placing lifecycle logic inside one large function.
-
-Each function should have one responsibility.
-
----
-
-# 8. Prevent race conditions
-
-Guarantee that:
-
-* multiple clicks cannot start multiple timelines
-* multiple router.push() calls cannot overlap
-* enter animation cannot start twice
-* exit animation cannot start twice
-
-The transition lifecycle must always remain deterministic.
-
----
-
-# 9. Handle edge cases safely
-
-Gracefully handle:
-
-* identical routes
-* query parameter changes
-* hash links
-* cancelled navigation
-* animation interruption
-* missing DOM refs
-
-The system must never become permanently locked.
-
----
-
-# 10. Keep the public API unchanged
-
-Do **not** change how components consume the transition.
-
-Keep:
-
-```ts
-const { navigate } = usePageTransition();
-```
-
-and
-
-```tsx
-<TransitionLink href="/blog" />
-```
-
-unchanged.
-
-Only improve the internal implementation.
-
----
-
-# Expected Final Lifecycle
-
-```text
-Click Link
-      │
-      ▼
-Lock navigation
-      │
-      ▼
-Transition State = exiting
-      │
-      ▼
-Play Exit Animation
-      │
-      ▼
-Transition State = navigating
-      │
-      ▼
-router.push()
-      │
-      ▼
-pathname updates
-      │
-      ▼
-Transition State = entering
-      │
-      ▼
-Play Enter Animation
-      │
-      ▼
-Transition State = idle
-      │
-      ▼
-Unlock navigation
-```
+If the actual order differs, identify why.
 
 ---
 
 # Success Criteria
 
-The final implementation should:
+The final behavior must be:
 
-* never use arbitrary delays
-* never rely on timing assumptions
-* never leave the navigation locked
-* never produce duplicate transitions
-* never produce race conditions
-* keep the original visual animation
-* be resilient to errors
-* have a clear lifecycle
-* be production-ready
-* improve maintainability without changing the public API
+* Exit animation is always visible.
+* Exit animation always completes before navigation.
+* Route changes only after exit finishes.
+* Enter animation plays after the destination page mounts.
+* No flicker.
+* No skipped animations.
+* No race conditions.
+* The centralized architecture remains unchanged.
+
+Do not redesign the architecture.
+
+Only restore the correct transition lifecycle while preserving the new Transition Manager structure.

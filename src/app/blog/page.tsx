@@ -1,6 +1,6 @@
 import BlurFade from "@/components/magicui/blur-fade";
+import { TransitionLink } from "@/components/page-transition";
 import { allPosts } from "content-collections";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { paginate, normalizePage } from "@/lib/pagination";
 import { ChevronRight } from "lucide-react";
@@ -62,7 +62,7 @@ export default async function BlogPage({
                 const indexNumber = (pagination.page - 1) * PAGE_SIZE + id + 1;
                 return (
                   <BlurFade delay={BLUR_FADE_DELAY * 3 + id * 0.05} key={slug}>
-                    <Link
+                    <TransitionLink
                       className="flex items-start gap-x-2 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       href={`/blog/${slug}`}
                     >
@@ -83,7 +83,7 @@ export default async function BlogPage({
                           {post.publishedAt}
                         </p>
                       </div>
-                    </Link>
+                    </TransitionLink>
                   </BlurFade>
                 );
               })}
@@ -99,24 +99,24 @@ export default async function BlogPage({
                 </div>
                 <div className="flex gap-2 sm:justify-end">
                   {pagination.hasPreviousPage ? (
-                    <Link
+                    <TransitionLink
                       href={`/blog?page=${pagination.page - 1}`}
                       className="h-8 w-fit px-2 flex items-center justify-center text-sm border border-border rounded-lg hover:bg-accent/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                       Previous
-                    </Link>
+                    </TransitionLink>
                   ) : (
                     <span className="h-8 w-fit px-2 flex items-center justify-center text-sm border border-border rounded-lg opacity-50 cursor-not-allowed">
                       Previous
                     </span>
                   )}
                   {pagination.hasNextPage ? (
-                    <Link
+                    <TransitionLink
                       href={`/blog?page=${pagination.page + 1}`}
                       className="h-8 w-fit px-2 flex items-center justify-center text-sm border border-border rounded-lg hover:bg-accent/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                       Next
-                    </Link>
+                    </TransitionLink>
                   ) : (
                     <span className="h-8 w-fit px-2 flex items-center justify-center text-sm border border-border rounded-lg opacity-50 cursor-not-allowed">
                       Next

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXContent } from "@content-collections/mdx/react";
 import { mdxComponents } from "@/mdx-components";
-import Link from "next/link";
+import { TransitionLink } from "@/components/page-transition";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function getSortedPosts() {
@@ -123,10 +123,10 @@ export default async function Blog({
         }}
       />
       <div className="flex justify-start gap-4 items-center">
-        <Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group" aria-label="Back to Blog">
+        <TransitionLink href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group" aria-label="Back to Blog">
           <ChevronLeft className="size-3 group-hover:-translate-x-px transition-transform" />
           Back to Blog
-        </Link>
+        </TransitionLink>
       </div>
       <div className="flex flex-col gap-4">
         <h1 className="title font-semibold text-3xl md:text-4xl tracking-tighter leading-tight">
@@ -154,7 +154,7 @@ export default async function Blog({
       <nav className="mt-12 pt-8 max-w-2xl">
         <div className="flex flex-col sm:flex-row justify-between gap-4">
           {previousPost ? (
-            <Link
+            <TransitionLink
               href={`/blog/${getSlug(previousPost)}`}
               className="group flex-1 flex flex-col gap-1 p-4 rounded-lg border border-border hover:bg-accent/50 transition-colors"
             >
@@ -165,13 +165,13 @@ export default async function Blog({
               <span className="text-sm font-medium group-hover:text-foreground transition-colors whitespace-normal wrap-break-word">
                 {previousPost.title}
               </span>
-            </Link>
+            </TransitionLink>
           ) : (
             <div className="hidden sm:block flex-1" />
           )}
 
           {nextPost ? (
-            <Link
+            <TransitionLink
               href={`/blog/${getSlug(nextPost)}`}
               className="group flex-1 flex flex-col gap-1 p-4 rounded-lg border border-border hover:bg-accent/50 transition-colors text-right"
             >
@@ -182,7 +182,7 @@ export default async function Blog({
               <span className="text-sm font-medium group-hover:text-foreground transition-colors whitespace-normal wrap-break-word">
                 {nextPost.title}
               </span>
-            </Link>
+            </TransitionLink>
           ) : (
             <div className="hidden sm:block flex-1" />
           )}

@@ -2,8 +2,8 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { TransitionLink } from "@/components/page-transition";
 import { DATA } from "@/data/resume";
-import Link from "next/link";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
 import HackathonsSection from "@/components/section/hackathons-section";
@@ -76,7 +76,7 @@ export default function Page() {
                 key={education.school}
                 delay={BLUR_FADE_DELAY * 8 + index * 0.05}
               >
-                <Link
+                <TransitionLink
                   href={education.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -107,7 +107,7 @@ export default function Page() {
                       {education.start} - {education.end}
                     </span>
                   </div>
-                </Link>
+                </TransitionLink>
               </BlurFade>
             ))}
           </div>

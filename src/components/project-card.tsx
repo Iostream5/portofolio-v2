@@ -2,9 +2,9 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { TransitionLink } from "@/components/page-transition";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import Markdown from "react-markdown";
 
@@ -62,7 +62,7 @@ export function ProjectCard({
       )}
     >
       <div className="relative shrink-0">
-        <Link
+        <TransitionLink
           href={href || "#"}
           target="_blank"
           rel="noopener noreferrer"
@@ -82,11 +82,11 @@ export function ProjectCard({
           ) : (
             <div className="w-full h-48 bg-muted" />
           )}
-        </Link>
+        </TransitionLink>
         {links && links.length > 0 && (
           <div className="absolute top-2 right-2 flex flex-wrap gap-2">
             {links.map((link, idx) => (
-              <Link
+              <TransitionLink
                 href={link.href}
                 key={idx}
                 target="_blank"
@@ -100,7 +100,7 @@ export function ProjectCard({
                   {link.icon}
                   {link.type}
                 </Badge>
-              </Link>
+              </TransitionLink>
             ))}
           </div>
         )}
@@ -111,7 +111,7 @@ export function ProjectCard({
             <h3 className="font-semibold">{title}</h3>
             <time className="text-xs text-muted-foreground">{dates}</time>
           </div>
-          <Link
+          <TransitionLink
             href={href || "#"}
             target="_blank"
             rel="noopener noreferrer"
@@ -119,7 +119,7 @@ export function ProjectCard({
             aria-label={`Open ${title}`}
           >
             <ArrowUpRight className="h-4 w-4" aria-hidden />
-          </Link>
+          </TransitionLink>
         </div>
         <div className="text-xs flex-1 prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
           <Markdown>{description}</Markdown>

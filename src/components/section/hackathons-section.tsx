@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
+import { TransitionLink } from "@/components/page-transition";
 import { DATA } from "@/data/resume";
 import { Timeline, TimelineItem, TimelineConnectItem } from "@/components/timeline";
 
@@ -57,7 +57,7 @@ export default function HackathonsSection() {
                 {hackathon.links && hackathon.links.length > 0 && (
                   <div className="mt-1 flex flex-row flex-wrap items-start gap-2">
                     {hackathon.links.map((link, idx) => (
-                      <Link
+                      <TransitionLink
                         href={link.href}
                         key={idx}
                         target="_blank"
@@ -67,7 +67,7 @@ export default function HackathonsSection() {
                           {link.icon}
                           {link.title}
                         </Badge>
-                      </Link>
+                      </TransitionLink>
                     ))}
                   </div>
                 )}

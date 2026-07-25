@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransitionLink } from "@/components/page-transition";
 import { Home } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -19,17 +19,16 @@ export default function NotFound() {
                         moved.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
-                        <Link href="/">
-                            <Button variant="outline" className="gap-2 cursor-pointer">
+                        <Button asChild variant="outline" className="gap-2 cursor-pointer">
+                            <TransitionLink href="/">
                                 <Home className="h-4 w-4" />
                                 Go to Home
-                            </Button>
-                        </Link>
+                            </TransitionLink>
+                        </Button>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-
 

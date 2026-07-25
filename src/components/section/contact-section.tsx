@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransitionLink } from "@/components/page-transition";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { DATA } from "@/data/resume";
 
@@ -25,14 +25,14 @@ export default function ContactSection() {
         </h2>
         <p className="mx-auto max-w-lg text-muted-foreground text-balance">
           Want to chat? Just shoot me a dm{" "}
-          <Link
+          <TransitionLink
             href={DATA.contact.social.Instagram.url}
             target="_blank"
             rel="noopener noreferrer"
             className="text-pink-500 hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
           >
             on Instagram
-          </Link>{" "}
+          </TransitionLink>{" "}
           or send me an email. I&apos;ll respond whenever I can. I will ignore all
           soliciting.
         </p>
@@ -40,4 +40,3 @@ export default function ContactSection() {
     </div>
   );
 }
-

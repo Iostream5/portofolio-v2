@@ -3,14 +3,21 @@
 import { createContext, useContext, useMemo, useRef, type ReactNode } from "react";
 import { TransitionOverlay } from "./overlay";
 import { useTransitionManager } from "./manager";
-import type { AnimationRefs } from "./types";
+import type { AnimationRefs, ThemeTransitionDirection } from "./types";
 
 interface TransitionContextType {
   navigate: (href: string) => Promise<void>;
+  transitionTheme: (
+    direction: ThemeTransitionDirection,
+    applyTheme: () => void
+  ) => Promise<void>;
 }
 
 const TransitionContext = createContext<TransitionContextType>({
   navigate: async () => {},
+  transitionTheme: async (_, applyTheme) => {
+    applyTheme();
+  },
 });
 
 export function usePageTransition() {
@@ -55,10 +62,10 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     []
   );
 
-  const { navigate, isSplashDone } = useTransitionManager(refs);
+  const { navigate, transitionTheme, isSplashDone } = useTransitionManager(refs);
 
   return (
-    <TransitionContext.Provider value={{ navigate }}>
+    <TransitionContext.Provider value={{ navigate, transitionTheme }}>
       <SplashContext.Provider value={{ isSplashDone, onSplashDone: () => {} }}>
         {children}
         <TransitionOverlay {...refs} />

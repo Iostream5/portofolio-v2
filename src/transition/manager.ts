@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createStateMachine } from "./state-machine";
-import { initOverlay, resetOverlay, playExit, playEnter, playSplashHome, playSplashOther } from "./animations";
-import type { AnimationRefs } from "./types";
+import { initOverlay, resetOverlay, playExit, playEnter, playSplashHome, playSplashOther, playThemeToggle } from "./animations";
+import type { AnimationRefs, ThemeTransitionDirection } from "./types";
 
 export function useTransitionManager(refs: AnimationRefs) {
   const router = useRouter();
@@ -85,5 +85,23 @@ export function useTransitionManager(refs: AnimationRefs) {
     [machine, refs, router]
   );
 
-  return { navigate, isSplashDone };
+  const transitionTheme = useCallback(
+    async (direction: ThemeTransitionDirection, applyTheme: () => void) => {
+      if (!machine.is("idle")) return;
+
+      machine.transition("theming");
+
+      try {
+        await playThemeToggle(refs, direction, applyTheme);
+        resetOverlay(refs);
+      } catch {
+        resetOverlay(refs);
+      } finally {
+        machine.transition("idle");
+      }
+    },
+    [machine, refs]
+  );
+
+  return { navigate, transitionTheme, isSplashDone };
 }

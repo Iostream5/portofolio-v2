@@ -5,7 +5,10 @@ export type TransitionState =
   | "splash"
   | "exiting"
   | "navigating"
-  | "entering";
+  | "entering"
+  | "theming";
+
+export type ThemeTransitionDirection = "in" | "out";
 
 export interface AnimationRefs {
   splashLeft: RefObject<HTMLDivElement | null>;

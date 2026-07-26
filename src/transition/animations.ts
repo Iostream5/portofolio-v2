@@ -67,13 +67,13 @@ export function playThemeToggle(
     tl.to(el, {
       x: "0%",
       y: "0%",
-      duration: 0.35,
+      duration: 1,
       ease: "power1.in",
     })
       .call(applyTheme)
       .to(el, {
         ...hiddenPosition,
-        duration: 0.35,
+        duration: 1,
         ease: "power1.in",
       });
   });

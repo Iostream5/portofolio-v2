@@ -1,0 +1,46 @@
+{
+  "Home": {
+    "hello": "Halo Saya {name}",
+    "about": "Tentang",
+    "work": "Pengalaman Kerja",
+    "education": "Pendidikan",
+    "skills": "Keahlian"
+  },
+  "Projects": {
+    "label": "Proyek Saya",
+    "heading": "Beberapa karya yang menyoroti keahlian saya.",
+    "description": "Saya telah mengerjakan berbagai proyek, dari website sederhana hingga aplikasi web kompleks. Berikut beberapa favorit saya."
+  },
+  "Hackathons": {
+    "label": "Hackathon",
+    "heading": "Saya suka membuat sesuatu",
+    "description": "Selama masa kuliah, saya mengikuti {count}+ hackathon. Orang-orang dari berbagai daerah berkumpul dan membangun hal-hal hebat dalam 2-3 hari. Sungguh membuka mata melihat kemungkinan tak terbatas yang diwujudkan oleh sekelompok individu yang termotivasi dan bersemangat."
+  },
+  "Contact": {
+    "label": "Kontak",
+    "heading": "Hubungi Saya",
+    "downloadCv": "Unduh CV",
+    "cvTitle": "CV Saya",
+    "cvDescription": "Lihat pengalaman, keahlian, dan proyek saya dalam satu file PDF.",
+    "textBefore": "Mau ngobrol? Kirim saja pesan ke",
+    "textAfter": "atau email. Saya akan membalas secepat yang saya bisa."
+  },
+  "Navbar": {
+    "theme": "Tema",
+    "language": "Bahasa"
+  },
+  "Common": {
+    "present": "Sekarang"
+  },
+  "Project": {
+    "back": "Kembali ke Proyek",
+    "active": "Aktif",
+    "links": "Tautan",
+    "techStack": "Teknologi"
+  },
+  "NotFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau mungkin telah dipindahkan.",
+    "goHome": "Ke Beranda"
+  }
+}

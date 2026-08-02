@@ -3,9 +3,12 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TransitionLink } from "@/components/page-transition";
-import { DATA } from "@/data/resume";
+import { getData } from "@/data/resume";
+import { routing } from "@/i18n/routing";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
+import CvDownloadCard from "@/components/section/cv-download-card";
 import HackathonsSection from "@/components/section/hackathons-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
@@ -13,7 +16,25 @@ import { ArrowUpRight } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default function Page() {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const data = getData(locale);
+  const t = await getTranslations("Home");
+  const tProjects = await getTranslations("Projects");
+  const tHackathons = await getTranslations("Hackathons");
+  const tContact = await getTranslations("Contact");
+  const instagramUrl = data.contact.social.Instagram.url;
+  const instagramLabel = instagramUrl.split("/").filter(Boolean).pop() ?? "";
+
   return (
     <main className="min-h-dvh flex flex-col gap-14 relative">
       <section id="hero">
@@ -24,18 +45,18 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
+                text={t("hello", { name: data.name })}
               />
               <BlurFadeText
                 className="text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"
                 delay={BLUR_FADE_DELAY}
-                text={DATA.description}
+                text={data.description}
               />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
               <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
+                <AvatarImage alt={data.name} src={data.avatarUrl} />
+                <AvatarFallback>{data.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>
@@ -44,21 +65,30 @@ export default function Page() {
       <section id="about">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <h2 className="text-xl font-bold">About</h2>
+            <h2 className="text-xl font-bold">{t("about")}</h2>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <div className="prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
               <Markdown>
-                {DATA.summary}
+                {data.summary}
               </Markdown>
             </div>
           </BlurFade>
         </div>
       </section>
+      <section id="cv" className=" w-full">
+        <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+          <CvDownloadCard
+            href={data.contact.social.CV.url}
+            title={tContact("cvTitle")}
+            description={tContact("cvDescription")}
+          />
+        </BlurFade>
+      </section>
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-xl font-bold">{t("work")}</h2>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 6}>
             <WorkSection />
@@ -68,10 +98,10 @@ export default function Page() {
       <section id="education">
         <div className="flex min-h-0 flex-col gap-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-bold">Education</h2>
+            <h2 className="text-xl font-bold">{t("education")}</h2>
           </BlurFade>
           <div className="flex flex-col gap-8">
-            {DATA.education.map((education, index) => (
+            {data.education.map((education, index) => (
               <BlurFade
                 key={education.school}
                 delay={BLUR_FADE_DELAY * 8 + index * 0.05}
@@ -116,10 +146,10 @@ export default function Page() {
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
+            <h2 className="text-xl font-bold">{t("skills")}</h2>
           </BlurFade>
           <div className="flex flex-wrap gap-2">
-            {DATA.skills.map((skill, id) => (
+            {data.skills.map((skill, id) => (
               <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
                   {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
@@ -132,19 +162,38 @@ export default function Page() {
       </section>
       <section id="projects">
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
-          <ProjectsSection />
+          <ProjectsSection
+            label={tProjects("label")}
+            heading={tProjects("heading")}
+            description={tProjects("description")}
+            projects={data.projects}
+          />
         </BlurFade>
       </section>
-      {DATA.hackathons.length > 0 && (
+      {data.hackathons.length > 0 && (
         <section id="hackathons">
           <BlurFade delay={BLUR_FADE_DELAY * 13}>
-            <HackathonsSection />
+            <HackathonsSection
+              label={tHackathons("label")}
+              heading={tHackathons("heading")}
+              description={tHackathons("description", {
+                count: data.hackathons.length,
+              })}
+              hackathons={data.hackathons}
+            />
           </BlurFade>
         </section>
       )}
       <section id="contact">
         <BlurFade delay={BLUR_FADE_DELAY * 16}>
-          <ContactSection />
+          <ContactSection
+            label={tContact("label")}
+            heading={tContact("heading")}
+            textBefore={tContact("textBefore")}
+            textAfter={tContact("textAfter")}
+            instagramUrl={instagramUrl}
+            instagramLabel={instagramLabel}
+          />
         </BlurFade>
       </section>
     </main>

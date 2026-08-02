@@ -27,6 +27,7 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
 
 interface Props {
   title: string;
+  slug: string;
   href?: string;
   description: string;
   dates: string;
@@ -44,6 +45,7 @@ interface Props {
 
 export function ProjectCard({
   title,
+  slug,
   href,
   description,
   dates,
@@ -63,9 +65,7 @@ export function ProjectCard({
     >
       <div className="relative shrink-0">
         <TransitionLink
-          href={href || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/project/${slug}`}
           className="block"
         >
           {video ? (
@@ -108,7 +108,14 @@ export function ProjectCard({
       <div className="p-6 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-1">
-            <h3 className="font-semibold">{title}</h3>
+            <TransitionLink
+              href={`/project/${slug}`}
+              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+            >
+              <h3 className="font-semibold group-hover:text-foreground transition-colors">
+                {title}
+              </h3>
+            </TransitionLink>
             <time className="text-xs text-muted-foreground">{dates}</time>
           </div>
           <TransitionLink

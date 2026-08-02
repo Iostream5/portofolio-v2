@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, type ReactNode } from "react";
+import { useLocale } from "next-intl";
 import { usePageTransition } from "./provider";
 
 type TransitionLinkProps = {
@@ -15,11 +16,17 @@ export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>
     ref
   ) {
   const { navigate } = usePageTransition();
+  const locale = useLocale();
 
   const isExternal =
     href.startsWith("http") ||
     href.startsWith("mailto") ||
     href.startsWith("tel");
+
+  const localizedHref =
+    isExternal || href.startsWith("#")
+      ? href
+      : `/${locale}${href}`;
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     onClick?.(e);
@@ -27,13 +34,13 @@ export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>
     if (isExternal || href.startsWith("#")) return;
     if (target === "_blank" || e.metaKey || e.ctrlKey) return;
     e.preventDefault();
-    await navigate(href);
+    await navigate(localizedHref);
   };
 
   return (
     <a
       ref={ref}
-      href={href}
+      href={localizedHref}
       onClick={handleClick}
       target={isExternal ? "_blank" : target}
       rel={isExternal ? "noopener noreferrer" : rel}

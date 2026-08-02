@@ -1,0 +1,46 @@
+{
+  "Home": {
+    "hello": "Hi, I'm {name}",
+    "about": "About",
+    "work": "Work Experience",
+    "education": "Education",
+    "skills": "Skills"
+  },
+  "Projects": {
+    "label": "My Projects",
+    "heading": "Some works that highlight my expertise.",
+    "description": "I have worked on various projects, ranging from simple websites to complex web applications. Here are some of my favorites."
+  },
+  "Hackathons": {
+    "label": "Hackathons",
+    "heading": "I like building things",
+    "description": "During my time in university, I attended {count}+ hackathons. People from around the country would come together and build incredible things in 2-3 days. It was eye-opening to see the endless possibilities brought to life by a group of motivated and passionate individuals."
+  },
+  "Contact": {
+    "label": "Contact",
+    "heading": "Get in Touch",
+    "downloadCv": "Download CV",
+    "cvTitle": "My CV",
+    "cvDescription": "See my experience, skills, and projects in one PDF file.",
+    "textBefore": "Want to chat? Just shoot me a dm at",
+    "textAfter": "or send me an email. I'll get back to you as soon as I can."
+  },
+  "Navbar": {
+    "theme": "Theme",
+    "language": "Language"
+  },
+  "Common": {
+    "present": "Present"
+  },
+  "Project": {
+    "back": "Back to Projects",
+    "active": "Active",
+    "links": "Links",
+    "techStack": "Tech Stack"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist or may have been moved.",
+    "goHome": "Go to Home"
+  }
+}

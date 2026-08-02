@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ProtectedAvatarImage } from "@/components/protected-avatar-image";
 import { TransitionLink } from "@/components/page-transition";
 import { getData } from "@/data/resume";
 import { routing } from "@/i18n/routing";
@@ -55,7 +56,7 @@ export default async function Page({
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
               <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
-                <AvatarImage alt={data.name} src={data.avatarUrl} />
+                <ProtectedAvatarImage src={data.avatarUrl} alt={data.name} />
                 <AvatarFallback>{data.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>

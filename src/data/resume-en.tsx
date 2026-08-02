@@ -188,6 +188,24 @@ export const resumeEn: Resume = {
       ],
       image: "/siakad-app.png",
       video: "",
+    },
+    {
+      title: "PAKE-MAIL",
+      href: "https://pake-mail.vercel.app/",
+      dates: "Jul 2026 - Aug 2026",
+
+      description:
+        `A full-stack SaaS that automates mass job application sending to many HRs at once, complete with a reply detection engine (reply tracking) to monitor applicant progress from application, interview, until accepted.`,
+      technologies: ["Next JS", "Supabase", "Redis", "TailwindCSS", "Prisma", "BullMQ", "Google OAuth"],
+      links: [
+        {
+          type: "Web",
+          href: "https://pake-mail.vercel.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/pake-mail.png",
+      video: "",
     }
   ],
   hackathons: [],

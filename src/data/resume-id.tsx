@@ -188,6 +188,24 @@ export const resumeId: Resume = {
       ],
       image: "/siakad-app.png",
       video: "",
+    },
+    {
+      title: "PAKE-MAIL",
+      href: "https://pake-mail.vercel.app/",
+      dates: "Jul 2026 - Agu 2026",
+
+      description:
+        `Full-stack SaaS yang mengotomatiskan pengiriman lamaran kerja massal ke banyak HR sekaligus, lengkap dengan mesin deteksi balasan (reply tracking) untuk memantau progress pelamar hingga tahap interview sampai diterima.`,
+      technologies: ["Next JS", "Supabase", "Redis", "TailwindCSS", "Prisma", "BullMQ", "Google OAuth"],
+      links: [
+        {
+          type: "Web",
+          href: "https://pake-mail.vercel.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/pake-mail.png",
+      video: "",
     }
   ],
   hackathons: [],

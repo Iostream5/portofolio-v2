@@ -107,7 +107,6 @@ Setiap entry:
 | `title` | Nama proyek | `"Irsyadut Thulab App"` |
 | `href` | URL proyek | `"https://play.google.com/store/apps/details?id=com.irsyadutthulab.altie&pcampaignid=web_share"` |
 | `dates` | Rentang waktu | `"Jan 2024 - Sep 2025"` |
-| `active` | Status aktif | `true` |
 | `description` | Deskripsi (mendukung Markdown) | `"Irsyadut Thulab adalah aplikasi yang menyediakan tuntunan bacaan tawasul, Al-Qur'an, dan sholawat. Dikembangkan oleh Tefatie SMKS Al Ittihad, aplikasi ini bertujuan untuk memudahkan pengguna dalam memahami dan mengamalkan bacaan-bacaan penting dalam kehidupan sehari-hari sesuai ajaran Islam. Dengan antarmuka yang ramah pengguna, Irsyadut Thulab berupaya menjadi panduan praktis bagi umat dalam memperdalam spiritualitas dan ibadah."` |
 | `technologies` | Array teknologi yang dipakai | `["HTML", "JS", "Alpine JS", "Capacitor"]` |
 | `links` | Array link `{ type, href, icon }` | `[{ type: "Playstore", href: "https://play.google.com/store/apps/details?id=com.irsyadutthulab.altie&pcampaignid=web_share", icon: <Icons.globe /> }]` |

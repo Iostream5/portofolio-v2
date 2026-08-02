@@ -121,7 +121,7 @@ export const resumeId: Resume = {
       title: "Irsyadut Thulab",
       href: "https://play.google.com/store/apps/details?id=com.irsyadutthulab.altie&pcampaignid=web_share",
       dates: "Jan 2024 - Sep 2025",
-      active: true,
+
       description:
         "Aplikasi tuntunan bacaan tawasul, Al-Qur'an, dan sholawat yang dikembangkan oleh Tefatie SMKS Al-Ittihad. Tujuannya sederhana: membantu pengguna memahami dan mengamalkan bacaan-bacaan penting sehari-hari sesuai ajaran Islam.",
       technologies: ["JavaScript", "Alpine JS", "Capacitor"],
@@ -139,7 +139,7 @@ export const resumeId: Resume = {
       title: "Wartel-App",
       href: "https://wartel-altie.vercel.app/",
       dates: "Feb 2025 - Mei 2025",
-      active: true,
+
       description:
         `Sistem manajemen antrean berbasis web dan desktop yang dibuat khusus untuk Warung Telepon (Wartel). Aplikasi ini menangani seluruh operasional wartel — mulai dari pendaftaran antrean pelanggan, pencatatan durasi pemakaian, perhitungan biaya otomatis sesuai tarif, sampai laporan dan analitik.`,
       technologies: ["React JS", "Supabase", "TailwindCSS", "Typescript"],
@@ -157,7 +157,7 @@ export const resumeId: Resume = {
       title: "Prakerin App",
       href: "https://prakerin-smks-alittihad.vercel.app",
       dates: "Jan 2026 - Jun 2026",
-      active: true,
+
       description:
         `Aplikasi web berbasis Next.js dan Supabase untuk mengelola seluruh proses Praktik Kerja Lapangan (PKL) di SMK, dari awal sampai selesai. Mendukung 13 peran pengguna, termasuk admin, kaprog, korlap, pembimbing, dan siswa.`,
       technologies: ["Next JS", "Supabase", "TailwindCSS", "Typescript"],
@@ -175,7 +175,7 @@ export const resumeId: Resume = {
       title: "Siakad",
       href: "https://siakad.vercel.app",
       dates: "Jan 2026 - Jun 2026",
-      active: true,
+
       description:
         `Sistem Informasi Akademik STAI Al-Ittihad yang memudahkan akses informasi, pendaftaran, dan pengelolaan perkuliahan secara modern, transparan, dan terintegrasi.`,
       technologies: ["Next JS", "Supabase", "TailwindCSS", "Typescript", "Midtrans"],

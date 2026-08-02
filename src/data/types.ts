@@ -52,7 +52,6 @@ export interface ProjectItem {
   title: string;
   href: string;
   dates: string;
-  active: boolean;
   description: string;
   technologies: readonly string[];
   links: readonly ProjectLink[];

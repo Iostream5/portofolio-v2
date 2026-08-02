@@ -8,8 +8,8 @@
   },
   "Projects": {
     "label": "Proyek Saya",
-    "heading": "Beberapa karya yang menyoroti keahlian saya.",
-    "description": "Saya telah mengerjakan berbagai proyek, dari website sederhana hingga aplikasi web kompleks. Berikut beberapa favorit saya."
+    "heading": "Beberapa project yang menyoroti keahlian saya.",
+    "description": "Saya telah mengerjakan berbagai proyek, dari website sederhana hingga aplikasi web kompleks."
   },
   "Hackathons": {
     "label": "Hackathon",
@@ -22,8 +22,8 @@
     "downloadCv": "Unduh CV",
     "cvTitle": "CV Saya",
     "cvDescription": "Lihat pengalaman, keahlian, dan proyek saya dalam satu file PDF.",
-    "textBefore": "Mau ngobrol? Kirim saja pesan ke",
-    "textAfter": "atau email. Saya akan membalas secepat yang saya bisa."
+    "textBefore": "Mau ngobrol? Kirim DM ke",
+    "textAfter": "atau melalui email untuk pertanyaan maupun kolaborasi."
   },
   "Navbar": {
     "theme": "Tema",
@@ -34,7 +34,6 @@
   },
   "Project": {
     "back": "Kembali ke Proyek",
-    "active": "Aktif",
     "links": "Tautan",
     "techStack": "Teknologi"
   },

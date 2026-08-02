@@ -121,7 +121,7 @@ export default async function ProjectPage({
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex justify-start gap-4 items-center">
           <TransitionLink
-            href="/#projects"
+            href="/"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-2 py-1 inline-flex items-center gap-1 mb-6 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             aria-label={t("back")}
           >
@@ -156,14 +156,6 @@ export default async function ProjectPage({
           </h1>
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <span>{project.dates}</span>
-            {project.active && (
-              <Badge
-                className="text-[11px] font-medium border border-border h-6 w-fit px-2"
-                variant="outline"
-              >
-                {t("active")}
-              </Badge>
-            )}
           </div>
         </div>
       </BlurFade>

@@ -14,6 +14,11 @@ export function useTransitionManager(refs: AnimationRefs) {
   const splashStartedRef = useRef(false);
   const pendingPathRef = useRef<string | null>(null);
 
+  const normalizePath = useCallback((path: string) => {
+    const clean = path.split("?")[0].split("#")[0];
+    return `/${clean.split("/").filter(Boolean).join("/")}`;
+  }, []);
+
   useEffect(() => {
     initOverlay(refs);
   }, [refs]);
@@ -27,7 +32,7 @@ export function useTransitionManager(refs: AnimationRefs) {
     splashStartedRef.current = true;
 
     machine.transition("splash");
-    const isHome = pathname === "/";
+    const isHome = pathname.split("/").filter(Boolean).length <= 1;
     const play = isHome ? playSplashHome(refs, onSplashDone) : playSplashOther(refs, onSplashDone);
 
     play.then(() => {
@@ -38,7 +43,7 @@ export function useTransitionManager(refs: AnimationRefs) {
 
   useEffect(() => {
     if (!machine.is("navigating")) return;
-    if (pendingPathRef.current && pendingPathRef.current !== pathname) return;
+    if (pendingPathRef.current && pendingPathRef.current !== normalizePath(pathname)) return;
 
     machine.transition("entering");
 
@@ -47,7 +52,7 @@ export function useTransitionManager(refs: AnimationRefs) {
       pendingPathRef.current = null;
       machine.transition("idle");
     });
-  }, [machine, pathname, refs]);
+  }, [machine, normalizePath, pathname, refs]);
 
   const navigate = useCallback(
     async (href: string) => {
@@ -56,10 +61,10 @@ export function useTransitionManager(refs: AnimationRefs) {
       }
       if (href.startsWith("#")) return;
 
-      const targetPath = href.split("?")[0].split("#")[0];
-      const currentPath = `${window.location.pathname}${window.location.search}`;
-      if (href === currentPath) return;
-      if (targetPath === window.location.pathname) {
+      const targetPath = normalizePath(href);
+      const currentPath = normalizePath(window.location.pathname + window.location.search);
+      if (targetPath === currentPath) return;
+      if (targetPath === normalizePath(window.location.pathname)) {
         router.push(href);
         return;
       }
@@ -82,7 +87,7 @@ export function useTransitionManager(refs: AnimationRefs) {
         machine.transition("idle");
       }
     },
-    [machine, refs, router]
+    [machine, normalizePath, refs, router]
   );
 
   const transitionTheme = useCallback(

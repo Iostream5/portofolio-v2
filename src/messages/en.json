@@ -8,8 +8,8 @@
   },
   "Projects": {
     "label": "My Projects",
-    "heading": "Some works that highlight my expertise.",
-    "description": "I have worked on various projects, ranging from simple websites to complex web applications. Here are some of my favorites."
+    "heading": "Some projects that highlight my expertise.",
+    "description": "I have worked on various projects, ranging from simple websites to complex web applications."
   },
   "Hackathons": {
     "label": "Hackathons",
@@ -22,8 +22,8 @@
     "downloadCv": "Download CV",
     "cvTitle": "My CV",
     "cvDescription": "See my experience, skills, and projects in one PDF file.",
-    "textBefore": "Want to chat? Just shoot me a dm at",
-    "textAfter": "or send me an email. I'll get back to you as soon as I can."
+    "textBefore": "Want to chat? Reach out via",
+    "textAfter": "or email for questions or collaboration."
   },
   "Navbar": {
     "theme": "Theme",
@@ -34,7 +34,6 @@
   },
   "Project": {
     "back": "Back to Projects",
-    "active": "Active",
     "links": "Links",
     "techStack": "Tech Stack"
   },

@@ -121,7 +121,7 @@ export const resumeEn: Resume = {
       title: "Irsyadut Thulab",
       href: "https://play.google.com/store/apps/details?id=com.irsyadutthulab.altie&pcampaignid=web_share",
       dates: "Jan 2024 - Sep 2025",
-      active: true,
+
       description:
         "A guide app for tawasul recitations, the Qur'an, and sholawat developed by Tefatie SMKS Al-Ittihad. The goal is simple: help users understand and practice important daily recitations according to Islamic teachings.",
       technologies: ["JavaScript", "Alpine JS", "Capacitor"],
@@ -139,7 +139,7 @@ export const resumeEn: Resume = {
       title: "Wartel-App",
       href: "https://wartel-altie.vercel.app/",
       dates: "Feb 2025 - May 2025",
-      active: true,
+
       description:
         `A web and desktop queue management system built specifically for telephone kiosks (Wartel). This app handles the entire wartel operation — from customer queue registration, usage duration tracking, automatic billing based on rates, to reports and analytics.`,
       technologies: ["React JS", "Supabase", "TailwindCSS", "Typescript"],
@@ -157,7 +157,7 @@ export const resumeEn: Resume = {
       title: "Prakerin App",
       href: "https://prakerin-smks-alittihad.vercel.app",
       dates: "Jan 2026 - Jun 2026",
-      active: true,
+
       description:
         `A Next.js and Supabase web app to manage the entire Industrial Work Practice (PKL) process at vocational schools, from start to finish. Supports 13 user roles, including admin, kaprog, korlap, supervisor, and student.`,
       technologies: ["Next JS", "Supabase", "TailwindCSS", "Typescript"],
@@ -175,7 +175,7 @@ export const resumeEn: Resume = {
       title: "Siakad",
       href: "https://siakad.vercel.app",
       dates: "Jan 2026 - Jun 2026",
-      active: true,
+
       description:
         `Academic Information System for STAI Al-Ittihad that makes information access, enrollment, and course management modern, transparent, and integrated.`,
       technologies: ["Next JS", "Supabase", "TailwindCSS", "Typescript", "Midtrans"],

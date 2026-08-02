@@ -26,7 +26,9 @@ export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>
   const localizedHref =
     isExternal || href.startsWith("#")
       ? href
-      : `/${locale}${href}`;
+      : href === "/"
+        ? `/${locale}`
+        : `/${locale}${href}`;
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     onClick?.(e);

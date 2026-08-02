@@ -103,7 +103,7 @@ export const resumeId: Resume = {
       start: "Jun 2024",
       end: "Feb 2025",
       description:
-        `Teaching Factory (TEFA) adalah model pembelajaran berbasis industri di SMK. Lewat TEFA, siswa tidak cuma belajar teori di kelas, tapi juga langsung membuat produk atau layanan nyata dengan standar kualitas yang diakui industri. Nama "Tie" sendiri diambil dari nama sekolah kami, Al-Ittihad (Altie).`,
+        `Teaching Factory (TEFA) adalah model pembelajaran berbasis industri di SMK. Lewat TEFA, siswa tidak cuma belajar teori di kelas, tapi juga langsung membuat produk atau layanan nyata dengan standar kualitas yang diakui industri.`,
     }
   ],
   education: [

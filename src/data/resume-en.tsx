@@ -103,7 +103,7 @@ export const resumeEn: Resume = {
       start: "Jun 2024",
       end: "Feb 2025",
       description:
-        `Teaching Factory (TEFA) is an industry-based learning model in vocational schools (SMK). Through TEFA, students don't just learn theory in class, but also directly create real products or services to industry-recognized quality standards. The name "Tie" itself comes from our school name, Al-Ittihad (Altie).`,
+        `Teaching Factory (TEFA) is an industry-based learning model in vocational schools (SMK). Through TEFA, students don't just learn theory in class, but also directly create real products or services to industry-recognized quality standards.`,
     }
   ],
   education: [
